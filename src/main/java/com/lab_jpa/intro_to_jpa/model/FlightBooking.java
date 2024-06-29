@@ -1,24 +1,27 @@
 package com.lab_jpa.intro_to_jpa.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class FlightBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookingId;
-    private Integer customerId;
-    private Integer flightId;
+
+    // here the reference to customerId
+    @ManyToOne
+    private Customer customer;
+
+    //here reference to flightId
+    @ManyToOne
+    private Flight flight;
 
     public FlightBooking() {
     }
 
-    public FlightBooking(Integer customerId, Integer flightId) {
-        this.customerId = customerId;
-        this.flightId = flightId;
+    public FlightBooking(Integer bookingId, Customer customer, Flight flight) {
+        this.customer = customer;
+        this.flight = flight;
     }
 
     public Integer getBookingId() {
@@ -29,28 +32,28 @@ public class FlightBooking {
         this.bookingId = bookingId;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Integer getFlightId() {
-        return flightId;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setFlightId(Integer flightId) {
-        this.flightId = flightId;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 
     @Override
     public String toString() {
         return "FlightBooking{" +
                 "bookingId=" + bookingId +
-                ", customerId=" + customerId +
-                ", flightId=" + flightId +
+                ", customer=" + customer +
+                ", flight=" + flight +
                 '}';
     }
 }
